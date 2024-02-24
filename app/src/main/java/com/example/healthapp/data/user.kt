@@ -9,5 +9,6 @@ data class user(
     val id:Int,
     val time: String,
     val med: String,
-    val desc: String
+    val desc: String,
+    val status: Int
 )

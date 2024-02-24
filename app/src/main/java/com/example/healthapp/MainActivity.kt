@@ -9,18 +9,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthapp.data.alarmViewModel
+import com.example.healthapp.data.userDao
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AlarmAdapter.onItemClickListner {
     lateinit var fab: ExtendedFloatingActionButton
     lateinit var mViewModel : alarmViewModel
     lateinit var recv : RecyclerView
+    lateinit var adapter: AlarmAdapter
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = AlarmAdapter()
+        adapter = AlarmAdapter()
         recv = findViewById(R.id.recycle)
         recv.adapter = adapter
         recv.layoutManager = LinearLayoutManager(this)
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             adapter.setData(user)
         })
 
-
+        adapter.setonItemClickListner(this)
 
 
         fab = findViewById(R.id.fab)
@@ -44,5 +47,19 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+
+    override fun onItemClick(pos: Int){
+        val user = adapter.alarmList[pos]
+        val state: Int = user.status
+        if (state == 1){
+            mViewModel.updateStatus(user.id, 0)
+            adapter.notifyItemChanged(user.id)
+        }
+        else{
+            mViewModel.updateStatus(user.id, 1)
+            adapter.notifyItemChanged(user.id)
+        }
     }
 }

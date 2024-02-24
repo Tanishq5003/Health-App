@@ -57,7 +57,7 @@ class AlarmSetter : AppCompatActivity() {
         val med_text = med.editText?.text.toString()
         val desc_text = desc.editText?.text.toString()
         if(inputCheck(time_text, med_text, desc_text)){
-            val alarm = user(0, time_text, med_text, desc_text)
+            val alarm = user(0, time_text, med_text, desc_text, 1)
             mViewModel.addAlarm(alarm)
             Toast.makeText(this, "Alarm Added", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)

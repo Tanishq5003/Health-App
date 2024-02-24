@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+
 @Dao
 interface userDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -13,5 +14,8 @@ interface userDao {
 
     @Query("SELECT * FROM Alarm_Data ORDER BY id ASC")
     fun readAllData(): LiveData<List<user>>
+
+    @Query("UPDATE Alarm_Data SET status = :newStatus WHERE id = :entityId")
+    fun updateStatus(entityId: Int, newStatus: Int)
 
 }

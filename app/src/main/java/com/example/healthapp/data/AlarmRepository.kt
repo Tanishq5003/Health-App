@@ -7,4 +7,8 @@ class AlarmRepository(private val userDao: userDao) {
     suspend fun addAlarm(user: user){
         userDao.addAlarm(user)
     }
+
+    suspend fun updateStatus(entityId: Int, newStatus: Int){
+        userDao.updateStatus(entityId, newStatus)
+    }
 }

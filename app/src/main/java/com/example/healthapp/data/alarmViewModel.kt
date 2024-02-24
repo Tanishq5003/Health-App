@@ -24,5 +24,11 @@ class alarmViewModel(application: Application): AndroidViewModel(application) {
 
     }
 
+    fun updateStatus(entityId: Int, newStatus: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateStatus(entityId, newStatus)
+        }
+    }
+
 
 }
