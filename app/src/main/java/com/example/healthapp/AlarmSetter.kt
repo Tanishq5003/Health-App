@@ -12,6 +12,7 @@ import com.example.healthapp.data.user
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.util.Calendar
 
 @Suppress("DEPRECATION")
 class AlarmSetter : AppCompatActivity() {
@@ -20,6 +21,7 @@ class AlarmSetter : AppCompatActivity() {
     lateinit var desc: TextInputLayout
     lateinit var submit: Button
     lateinit var mViewModel: alarmViewModel
+    lateinit var calender: Calendar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm_setter)
@@ -50,12 +52,18 @@ class AlarmSetter : AppCompatActivity() {
             var hour = picker.hour
             var min = picker.minute
             time.editText?.setText("$hour : $min")
+            calender = Calendar.getInstance()
+            calender.set(Calendar.HOUR_OF_DAY, picker.hour)
+            calender.set(Calendar.MINUTE, picker.minute)
+            calender.set(Calendar.SECOND, 0)
+            calender.set(Calendar.MILLISECOND, 0)
         }
     }
     private fun insertDataToDatabase(){
         val time_text = time.editText?.text.toString()
         val med_text = med.editText?.text.toString()
         val desc_text = desc.editText?.text.toString()
+        val millisecond: Long = calender.timeInMillis
         if(inputCheck(time_text, med_text, desc_text)){
             val alarm = user(0, time_text, med_text, desc_text, 1)
             mViewModel.addAlarm(alarm)

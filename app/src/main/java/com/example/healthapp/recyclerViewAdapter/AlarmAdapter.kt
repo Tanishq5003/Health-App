@@ -1,17 +1,13 @@
-package com.example.healthapp
+package com.example.healthapp.recyclerViewAdapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.healthapp.data.alarmViewModel
+import com.example.healthapp.R
 import com.example.healthapp.data.user
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.coroutines.Dispatchers
 
 class AlarmAdapter: RecyclerView.Adapter<AlarmAdapter.alarnViewHolder>() {
     var alarmList = emptyList<user>()
